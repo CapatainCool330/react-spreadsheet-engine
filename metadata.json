@@ -1,0 +1,5 @@
+{
+  "name": "React Spreadsheet Engine",
+  "description": "A 10x10 spreadsheet with formula evaluation, dependency management, and circular reference detection.",
+  "requestFramePermissions": []
+}
