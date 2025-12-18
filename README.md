@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# React Spreadsheet Engine
 
-# Run and deploy your AI Studio app
+**React Spreadsheet Engine** is a high-performance spreadsheet implementation built from scratch. It features a reactive calculation engine that handles formula parsing, cell dependencies, and automatic updates.
 
-This contains everything you need to run your app locally.
+## Key Features
 
-View your app in AI Studio: https://ai.studio/apps/drive/1ClfHINjH0bjBHMY6e-pz2N1LH5_JC9k_
+*   **Formula Engine**: Supports basic arithmetic (`+`, `-`, `*`, `/`) and cell references (e.g., `=A1+B2`).
+*   **Dependency Tracking**: Intelligent graph-based recalculation ensures only affected cells update.
+*   **Error Handling**: Detects and flags `#CIRCULAR` dependencies, division by zero (`#DIV/0!`), and syntax errors (`#ERROR`).
+*   **Modern Tech Stack**: Built with React 19, TypeScript, Vite, and Tailwind CSS.
+*   **Clean UI**: Responsive grid interface with optimistic updates and keyboard navigation.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+**Prerequisites:** Node.js
 
+1.  Install dependencies:
+    ```bash
+    npm install
+    ```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+2.  Run the app:
+    ```bash
+    npm run dev
+    ```
+
+## Live Demo (Local)
+
+When running locally, you can use the "Load Demo" button to populate the grid with example data and formulas.
