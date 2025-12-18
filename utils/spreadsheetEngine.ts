@@ -8,13 +8,13 @@ import { ALL_CELL_IDS } from '../constants';
  */
 export const recalculateGrid = (currentGrid: GridState): GridState => {
   const newGrid: GridState = { ...currentGrid };
-  
+
   // 1. Build Dependency Graph
   // Adjacency list: Cell -> [Cells that depend on it]
   const dependents: Record<CellId, CellId[]> = {};
   // Track in-degree: Number of dependencies a cell has
   const inDegree: Record<CellId, number> = {};
-  
+
   // Initialize
   ALL_CELL_IDS.forEach(id => {
     dependents[id] = [];
@@ -64,7 +64,7 @@ export const recalculateGrid = (currentGrid: GridState): GridState => {
   // If calcOrder length != total cells, there is a cycle.
   // Any cell with inDegree > 0 after the sort is part of (or dependent on) a cycle.
   const hasCycle = calcOrder.length !== ALL_CELL_IDS.length;
-  
+
   if (hasCycle) {
     ALL_CELL_IDS.forEach(id => {
       if (inDegree[id] > 0) {
@@ -78,7 +78,7 @@ export const recalculateGrid = (currentGrid: GridState): GridState => {
   // Only evaluate cells that were part of the valid sort (not in a cycle)
   calcOrder.forEach(cellId => {
     const cell = newGrid[cellId];
-    
+
     // Skip if already marked as circular
     if (cell.error === '#CIRCULAR') return;
 
@@ -92,8 +92,12 @@ export const recalculateGrid = (currentGrid: GridState): GridState => {
       }
     } else {
       // It's a raw value (number or string)
-      const num = Number(cell.raw);
-      newGrid[cellId].value = isNaN(num) ? cell.raw : num;
+      if (cell.raw.trim() === '') {
+        newGrid[cellId].value = null;
+      } else {
+        const num = Number(cell.raw);
+        newGrid[cellId].value = isNaN(num) ? cell.raw : num;
+      }
     }
   });
 
