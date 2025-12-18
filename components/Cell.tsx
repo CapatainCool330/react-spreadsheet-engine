@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CellData } from '../types';
-import { clsx } from 'clsx'; // We'll just use string interp if clsx isn't strictly available, but standard is fine
-// Note: assuming clsx-like behavior via template literals for simplicity if external lib strictly banned,
-// but instructions say "Use popular and existing libraries".
+import { clsx } from 'clsx';
 
 interface CellProps {
   data: CellData;
@@ -12,32 +10,29 @@ interface CellProps {
   className?: string;
 }
 
-export const Cell: React.FC<CellProps> = ({ 
-  data, 
-  isSelected, 
-  onClick, 
+export const Cell: React.FC<CellProps> = ({
+  data,
+  isSelected,
+  onClick,
   onChange,
-  className 
+  className
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(data.raw);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Sync internal state with external prop only when not editing
   useEffect(() => {
     if (!isEditing) {
       setInputValue(data.raw);
     }
   }, [data.raw, isEditing]);
 
-  // Focus input when editing starts
   useEffect(() => {
     if (isSelected && isEditing && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isSelected, isEditing]);
 
-  // Reset editing when selection is lost
   useEffect(() => {
     if (!isSelected) {
       setIsEditing(false);
@@ -54,7 +49,7 @@ export const Cell: React.FC<CellProps> = ({
       onChange(inputValue);
     } else if (e.key === 'Escape') {
       setIsEditing(false);
-      setInputValue(data.raw); // Revert
+      setInputValue(data.raw);
     }
   };
 
@@ -63,10 +58,9 @@ export const Cell: React.FC<CellProps> = ({
     onChange(inputValue);
   };
 
-  // Determine display text
   let displayText = data.value?.toString() ?? '';
   let cellStyle = "text-gray-800";
-  
+
   if (data.error) {
     displayText = data.error;
     cellStyle = "text-red-600 font-medium bg-red-50";

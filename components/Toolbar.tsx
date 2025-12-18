@@ -8,9 +8,9 @@ interface ToolbarProps {
   onEnter: () => void;
 }
 
-export const Toolbar: React.FC<ToolbarProps> = ({ 
-  selectedCell, 
-  rawValue, 
+export const Toolbar: React.FC<ToolbarProps> = ({
+  selectedCell,
+  rawValue,
   onRawValueChange,
   onEnter
 }) => {
